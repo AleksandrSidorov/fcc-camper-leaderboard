@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      filterText: '',
       data: []
     };
   }
@@ -40,10 +41,18 @@ class App extends Component {
     this.getAllData();
   }
 
+  handleUserInput(filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  }
+
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar
+          filterText={this.state.filterText}
+          onUserInput={this.handleUserInput.bind(this)} />
         <CamperList />
       </div>
     );
