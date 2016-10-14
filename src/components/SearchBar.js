@@ -7,12 +7,17 @@ class SearchBar extends Component {
 
   render () {
     return (
-      <div>
-        <input
-          type="text"
-          placeholder="Search Camper..."
-          value={this.props.filterText}
-          onChange={event => this.handleChange(event.target.value)} />
+      <div className="form-group row">
+        <label htmlFor="search-input" className="col-sm-2 col-form-label">Filter</label>
+        <div className="col-sm-10">
+          <input
+            className="form-control"
+            id="search-input"
+            type="text"
+            placeholder="Search Camper..."
+            value={this.props.filterText}
+            onChange={event => this.handleChange(event.target.value)} />
+        </div>
       </div>
     );
   }

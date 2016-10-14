@@ -1,0 +1,6 @@
+.list-header {
+  cursor: pointer;
+}
+.list-header--active {
+  background-color: #eee;
+}

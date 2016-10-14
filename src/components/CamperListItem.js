@@ -1,13 +1,24 @@
 import React from 'react';
+import './CamperListItem.css';
 
-const CamperListItem = () => {
+const FCC_URL = 'https://www.freecodecamp.com/';
+
+const CamperListItem = (props) => {
   return (
-    <li>
-      <div>N</div>
-      <div>Camper</div>
-      <div>N_recent</div>
-      <div>N_total</div>
-    </li>
+    <tr>
+      <td>{props.index + 1}</td>
+      <td>
+        <a href={FCC_URL + props.camper.username}>
+          <img
+            src={props.camper.img}
+            className="camper__image"
+            alt="Camper Avatar" />
+          <span>{props.camper.username}</span>
+        </a>
+      </td>
+      <td>{props.camper.recent}</td>
+      <td>{props.camper.alltime}</td>
+    </tr>
   );
 }
 

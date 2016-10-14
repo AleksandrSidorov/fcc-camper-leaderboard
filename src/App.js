@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import CamperList from './components/CamperList';
@@ -9,15 +8,16 @@ import _ from 'lodash';
 const BASE_URL = 'https://fcctop100.herokuapp.com/api/';
 const RECENT_PATH = 'fccusers/top/recent';
 const ALLTIME_PATH = 'fccusers/top/alltime';
-const FCC_URL = 'https://www.freecodecamp.com/';
 
-class App extends Component {
+
+class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       filterText: '',
-      data: []
+      data: [],
+      isRecent: true
     };
   }
 
@@ -29,7 +29,6 @@ class App extends Component {
     axios.all([ this.getCampers(RECENT_PATH), this.getCampers(ALLTIME_PATH) ])
       .then( axios.spread( (recent, alltime) => {
         let campersUnion = _.unionBy(recent.data, alltime.data, 'username');
-        console.log(campersUnion);
         this.setState({
           data: campersUnion
         });
@@ -47,13 +46,25 @@ class App extends Component {
     });
   }
 
+  sortByCategory = (cat) => {
+    this.setState({
+      data: _.sortBy(this.state.data, cat).reverse(),
+      isRecent: cat === 'recent' ? true : false
+    });
+  };
+
   render() {
     return (
-      <div>
+      <div className="container">
+        <h1>FreeCodeCamp Campers Leaderboard</h1>
         <SearchBar
           filterText={this.state.filterText}
           onUserInput={this.handleUserInput.bind(this)} />
-        <CamperList />
+        <CamperList
+          campersList={this.state.data}
+          filterText={this.state.filterText}
+          isRecent={this.state.isRecent}
+          onUserSort={this.sortByCategory} />
       </div>
     );
   }
