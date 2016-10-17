@@ -9,14 +9,19 @@ class CamperList extends React.Component {
   }
 
   render () {
-    const camperItems = this.props.campersList.map( (camper, index) => {
-      return (
-        <CamperListItem
-          key={camper.username}
-          index={index}
-          camper={camper} />
-      );
-    }).slice(0, 100);
+    const camperItems = this.props.campersList
+      .filter( (camper) => {
+        return this.props.filterText === '' || camper.username.indexOf(this.props.filterText) !== -1
+      })
+      .map( (camper, index) => {
+        return (
+          <CamperListItem
+            key={camper.username}
+            index={index}
+            camper={camper} />
+        );
+      })
+      .slice(0, 100);
 
     return (
       <table className="table table-hover">

@@ -8,7 +8,7 @@ class SearchBar extends Component {
   render () {
     return (
       <div className="form-group row">
-        <label htmlFor="search-input" className="col-sm-2 col-form-label">Filter</label>
+        <label htmlFor="search-input" className="col-sm-2 col-form-label">Filter by username:</label>
         <div className="col-sm-10">
           <input
             className="form-control"
